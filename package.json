@@ -10,8 +10,15 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.1.6",
+    "node-html-parser": "^5.3.3",
     "react": "17.0.2",
-    "react-native": "0.67.4"
+    "react-native": "0.67.4",
+    "react-native-action-button": "^2.8.5",
+    "react-native-floating-action": "^1.22.0",
+    "react-native-floating-action-button": "^0.2.2",
+    "react-native-html-parser": "^0.1.0",
+    "react-native-sticky-parallax-header": "^0.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
