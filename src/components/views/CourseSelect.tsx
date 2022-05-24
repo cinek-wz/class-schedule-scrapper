@@ -2,14 +2,17 @@ import React, { Component, memo, PureComponent, useEffect, useMemo, useState } f
 import { ActivityIndicator, Button, Image,StyleSheet, FlatList, Text, View, Alert, ScrollView, SafeAreaView, TouchableOpacity, VirtualizedList, SectionList, TouchableWithoutFeedback, Pressable } from "react-native";
 import { parse } from 'node-html-parser';
 
-import Styles from '../styles/style';
+import Styles from '../styles/Style';
 
 const CourseSelect = ({ navigation }) =>
 {
     const [isLoading, setLoading] = useState(true);
     //Serialized data from fetch
     const [data, setData] = useState([]);
-    const [pickedGroup, setGroup] = useState(null);
+    //Selected course
+    const [pickedCourse, setCourse] = useState(null);
+
+    
 
     useEffect(() => 
     {
@@ -47,37 +50,38 @@ const CourseSelect = ({ navigation }) =>
         </View>
     );
 
-    let RenderItem = ({ item }) => 
+    let RenderItem = ({ item, index }) => 
     (
-        <TouchableOpacity onPress={() => setGroup(item)}>
+        <TouchableOpacity onPress={() => { setCourse(item) }}>
             <Text style={Styles.courseitemcontainer} >
-                {item.name}
+                {pickedCourse && pickedCourse.name == item.name ? 
+                <Text style={ {color: "darkolivegreen", fontWeight: 'bold'}}>✔️ {item.name}</Text> : <Text>{item.name}</Text> }
             </Text>
         </TouchableOpacity>
     );
 
-    const Memoized = useMemo(() => RenderItem, [data]);
+    const MemoizedItem = useMemo(() => RenderItem, [data, pickedCourse]);
+    const MemoizedSection = useMemo(() => RenderSection, [data]);
     
     return (
         <>
-            <View>
-                {pickedGroup ? (
-                    <View style={{ padding: 10 }}>
-                        <Text style={Styles.title}>{pickedGroup.name}</Text>
-                        <Button title="Dalej" onPress={() => navigation.navigate('GroupSelect', { course: pickedGroup })}></Button>
-                    </View>
-                ) : null}
-            </View>
             {isLoading ? (
                 <ActivityIndicator />
             ) : (
-                <SectionList
-                    sections={data}
-                    keyExtractor={(item, index) => item + index}
-                    initialNumToRender={2}
-                    renderItem={Memoized}
-                    renderSectionHeader={RenderSection}
-                />
+                <>
+                    <SectionList
+                        sections={data}
+                        initialNumToRender={2}
+                        renderItem={MemoizedItem}
+                        renderSectionHeader={MemoizedSection}
+                    />
+
+                    {pickedCourse ? (
+                        <View>
+                            <Button title="Dalej" onPress={() => navigation.navigate('GroupSelect', { course: pickedCourse })}></Button>
+                        </View>
+                    ) : null}
+                </>
             )}
         </>
     );

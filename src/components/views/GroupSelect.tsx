@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, VirtualizedList } from 'react-native';
+import { ActivityIndicator, FlatList, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, VirtualizedList } from 'react-native';
 import { Colors, DebugInstructions } from 'react-native/Libraries/NewAppScreen';
 import { parse } from 'node-html-parser';
 
-import Styles from '../styles/style';
+import Styles from '../styles/Style';
 
 import CourseSelect from './CourseSelect';
 
@@ -41,10 +41,11 @@ const GroupSelect = ({ route, navigation }) =>
         <Text>{title}</Text>
       </View>
     );
+
     let RenderedItem = ({ item }) => 
     {
         return (
-            <View key={item.name}>
+            <View>
                 <View style={Styles.groupitemcontainer}>
                     <Text style={Styles.groupitem}>{item.name}</Text>
                 </View>
@@ -57,13 +58,10 @@ const GroupSelect = ({ route, navigation }) =>
             {isLoading ? (
                 <ActivityIndicator />
             ) : (
-                <VirtualizedList
+                <FlatList
                     data={data}
-                    initialNumToRender={20}
+                    initialNumToRender={5}
                     renderItem={RenderedItem}
-                    keyExtractor={(item: any) => item.name}
-                    getItemCount={() => data.length}
-                    getItem={(data, index) => data[index]}
                 />
             )}
         </SafeAreaView>
