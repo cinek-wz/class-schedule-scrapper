@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import { Colors, DebugInstructions } from 'react-native/Libraries/NewAppScreen';
-
-import GroupView from './GroupView';
 
 const Home = () => 
 {
     return (
         <View style={{ backgroundColor: Colors.lighter }}>
-            <GroupView></GroupView>
+            <Text></Text>
         </View>
     );
 };

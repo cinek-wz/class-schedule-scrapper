@@ -4,7 +4,7 @@ const Styles = StyleSheet.create(
 {
     title:
     {
-        fontSize: 25,
+        fontSize: 20,
         margin: 15,
         textAlign: 'center'
     },
@@ -13,10 +13,21 @@ const Styles = StyleSheet.create(
         backgroundColor: "skyblue",
         margin: 5
     },
-    course:
+    //Course items
+    courseitemcontainer:
     {
-        fontSize: 16,
         padding: 7
+    },
+    //Group items
+    groupitemcontainer:
+    {
+        padding: 7
+    },
+    groupitem:
+    {
+        fontSize: 14,
+        fontWeight: 'bold',
+        marginBottom: 5
     },
     actionButtonIcon: 
     {

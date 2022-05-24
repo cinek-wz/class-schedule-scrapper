@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from '@components/views/Template';
-import GroupView from '@components/views/GroupView';
+import CourseSelect from '@components/views/CourseSelect';
 import GroupSelect from '@components/views/GroupSelect';
 
 const Stack = createNativeStackNavigator();
@@ -26,7 +26,7 @@ const App = () =>
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Home">
-                <Stack.Screen name="Home" component={GroupView} options={{ title: "Wybór kierunku" }}/>
+                <Stack.Screen name="Home" component={CourseSelect} options={{ title: "Wybór kierunku" }}/>
                 <Stack.Screen name="GroupSelect" component={GroupSelect} options={{ title: "Wybór grupy" }}/>
             </Stack.Navigator>
         </NavigationContainer>
