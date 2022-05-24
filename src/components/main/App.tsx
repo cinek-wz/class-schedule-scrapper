@@ -1,17 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from 'react-native/Libraries/NewAppScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Home from '@components/views/Home';
+import Home from '@components/views/Template';
+import GroupView from '@components/views/GroupView';
+import GroupSelect from '@components/views/GroupSelect';
+
+const Stack = createNativeStackNavigator();
+
+/*
+<SafeAreaView style={ {backgroundColor: Colors.lighter }}>
+<StatusBar barStyle={'light-content'} />
+
+</SafeAreaView>*/
 
 const App = () => 
 {
-  return (
-    <SafeAreaView style={ {backgroundColor: Colors.lighter }}>
-        <StatusBar barStyle={'light-content'} />
-        <Home/>
-    </SafeAreaView>
-  );
+    useEffect(() => 
+    {
+
+    });
+
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Home">
+                <Stack.Screen name="Home" component={GroupView} options={{ title: "Wybór kierunku" }}/>
+                <Stack.Screen name="GroupSelect" component={GroupSelect} options={{ title: "Wybór grupy" }}/>
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 };
 
 export default App;

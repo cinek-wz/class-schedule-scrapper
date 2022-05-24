@@ -2,16 +2,13 @@ import React, { Component, useEffect, useState } from "react";
 import { ActivityIndicator, Button, Image,StyleSheet, FlatList, Text, View, Alert, ScrollView, SafeAreaView, TouchableOpacity } from "react-native";
 import Styles from '../styles/style';
 
-import { FloatingAction } from "react-native-floating-action";
 import { parse } from 'node-html-parser';
 
-const GroupView = () =>
+const GroupView = ({ navigation }) =>
 {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [pickedGroup, setGroup] = useState(null);
-
-    /**/
 
     useEffect(() => 
     {
@@ -80,7 +77,7 @@ const GroupView = () =>
                             {pickedGroup ? (
                                 <View style={{ padding: 10 }}>
                                     <Text style={Styles.title}>{pickedGroup.name}</Text>
-                                    <Button title="Dalej"></Button>
+                                    <Button title="Dalej" onPress={() => navigation.navigate('GroupSelect', { course: pickedGroup })}></Button>
                                 </View>
                             ) : null}
                         </View>
