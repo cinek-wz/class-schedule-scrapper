@@ -16,7 +16,6 @@ const CourseSelect = ({ navigation }) =>
 
     useEffect(() => 
     {
-        console.log("START");
         fetch("http://www.plan.uz.zgora.pl/grupy_lista_kierunkow.php").then((response) => response.text()).then(body =>
         {
             let DOM = parse(body);

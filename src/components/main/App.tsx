@@ -25,8 +25,8 @@ const App = () =>
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home">
-                <Stack.Screen name="Home" component={CourseSelect} options={{ title: "Wybór kierunku" }}/>
+            <Stack.Navigator initialRouteName="CourseSelect">
+                <Stack.Screen name="CourseSelect" component={CourseSelect} options={{ title: "Wybór kierunku" }}/>
                 <Stack.Screen name="GroupSelect" component={GroupSelect} options={{ title: "Wybór grupy" }}/>
             </Stack.Navigator>
         </NavigationContainer>

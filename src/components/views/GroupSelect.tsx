@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, VirtualizedList } from 'react-native';
+import { ActivityIndicator, Button, FlatList, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, useColorScheme, View, VirtualizedList } from 'react-native';
 import { Colors, DebugInstructions } from 'react-native/Libraries/NewAppScreen';
 import { parse } from 'node-html-parser';
 
@@ -35,36 +35,41 @@ const GroupSelect = ({ route, navigation }) =>
             setLoading(false);
         });
     }, []);
-    
-    const Item = ({ title }) => (
-      <View>
-        <Text>{title}</Text>
-      </View>
+
+    let RenderItem = ({ item }) => 
+    (
+        <TouchableOpacity onPress={() => { setGroup(item) }}>
+            <Text style={Styles.groupitemcontainer} >
+                {pickedGroup && pickedGroup.name == item.name ? 
+                <Text style={ {color: "darkolivegreen", fontWeight: 'bold'}}>✔️ {item.name}</Text> : <Text>{item.name}</Text> }
+            </Text>
+        </TouchableOpacity>
     );
 
-    let RenderedItem = ({ item }) => 
-    {
-        return (
-            <View>
-                <View style={Styles.groupitemcontainer}>
-                    <Text style={Styles.groupitem}>{item.name}</Text>
-                </View>
-            </View>
-        );
-    };
-
     return (
-        <SafeAreaView style={{ backgroundColor: Colors.lighter }}>
+        <>
             {isLoading ? (
                 <ActivityIndicator />
             ) : (
-                <FlatList
-                    data={data}
-                    initialNumToRender={5}
-                    renderItem={RenderedItem}
-                />
+                <>
+                    <FlatList
+                        data={data}
+                        initialNumToRender={5}
+                        renderItem={RenderItem}
+                    />
+
+                    {pickedGroup ? (
+                        <View>
+                            <Button title="Dalej" onPress={() => 
+                            {
+                                navigation.navigate('GroupSelect', { group: pickedGroup })
+                            }
+                            }></Button>
+                        </View>
+                    ) : null}
+                </>
             )}
-        </SafeAreaView>
+        </>
     );
 };
 
