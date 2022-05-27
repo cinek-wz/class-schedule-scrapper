@@ -2,7 +2,7 @@ import React, { Component, memo, PureComponent, useEffect, useMemo, useState } f
 import { ActivityIndicator, Button, Image,StyleSheet, FlatList, Text, View, Alert, ScrollView, SafeAreaView, TouchableOpacity, VirtualizedList, SectionList, TouchableWithoutFeedback, Pressable } from "react-native";
 import { parse } from 'node-html-parser';
 
-import Styles from '../styles/Style';
+import Styles from '@styles/Style';
 
 const CourseSelect = ({ navigation }) =>
 {
@@ -63,9 +63,11 @@ const CourseSelect = ({ navigation }) =>
     const MemoizedSection = useMemo(() => RenderSection, [data]);
     
     return (
-        <>
+        <View style={Styles.containerfull}>
             {isLoading ? (
-                <ActivityIndicator />
+                <View style={Styles.centered}>
+                    <ActivityIndicator />
+                </View>
             ) : (
                 <>
                     <SectionList
@@ -82,7 +84,7 @@ const CourseSelect = ({ navigation }) =>
                     ) : null}
                 </>
             )}
-        </>
+        </View>
     );
 }
 

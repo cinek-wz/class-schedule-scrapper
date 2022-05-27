@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Button, FlatList, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, useColorScheme, View, VirtualizedList } from 'react-native';
 import { Colors, DebugInstructions } from 'react-native/Libraries/NewAppScreen';
 import { parse } from 'node-html-parser';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Styles from '../styles/Style';
+import Styles from '@styles/Style';
 
 import CourseSelect from './CourseSelect';
 
@@ -47,7 +48,7 @@ const GroupSelect = ({ route, navigation }) =>
     );
 
     return (
-        <>
+        <View style={Styles.containerfull}>
             {isLoading ? (
                 <ActivityIndicator />
             ) : (
@@ -60,16 +61,17 @@ const GroupSelect = ({ route, navigation }) =>
 
                     {pickedGroup ? (
                         <View>
-                            <Button title="Dalej" onPress={() => 
+                            <Button title="Dalej" onPress={async () => 
                             {
-                                navigation.navigate('GroupSelect', { group: pickedGroup })
+                                await AsyncStorage.setItem('@grouplink', JSON.stringify(pickedGroup));
+                                navigation.navigate('Schedule');
                             }
                             }></Button>
                         </View>
                     ) : null}
                 </>
             )}
-        </>
+        </View>
     );
 };
 
