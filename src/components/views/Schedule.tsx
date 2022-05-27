@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, Button, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import { Colors, DebugInstructions } from 'react-native/Libraries/NewAppScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,6 +7,7 @@ import { parse } from 'node-html-parser';
 import cheerio from 'cheerio';
 
 import Styles from '@styles/Style';
+import { ScheduleContext } from '../main/App';
 
 const Schedule = ({ route, navigation }) => 
 {
@@ -14,7 +15,9 @@ const Schedule = ({ route, navigation }) =>
     const [tableData, setTableData] = useState([]);
 
     const tableHead = ['PG', 'Od', 'Do', 'Przedmiot', 'RZ', 'Nauczyciel', 'Miejsce', 'Terminy'];
-    const widthArr = [40, 80, 60, 170, 40, 140, 80, 80]
+    const widthArr = [40, 80, 60, 170, 40, 140, 80, 80];
+
+    const Context = useContext(ScheduleContext);
 
     useEffect(() => 
     {
@@ -67,7 +70,7 @@ const Schedule = ({ route, navigation }) =>
         <View style={Styles.containerfull}>
             <Button title="Zmień grupę" onPress={async () => 
             {
-                navigation.navigate('CourseSelect');
+                Context.clear();
             }}></Button>
             {isLoading ? (
                 <View style={Styles.centered}>
