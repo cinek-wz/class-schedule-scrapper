@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useMemo, useReducer, useState } from 'react';
 import { ActivityIndicator, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
-import { Colors, DebugInstructions, Header, LearnMoreLinks, ReloadInstructions } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -41,6 +40,19 @@ const App = () =>
         groupurl: null
     });
 
+    
+    const Context = useMemo(() => 
+    ({
+        update: (name, url) => {
+            AsyncStorage.setItem('@grouplink', JSON.stringify({ name: name, url: url }));
+            dispatch({ type: 'UPDATE', name: name, url: url });
+        },
+        clear: () => {
+            dispatch({ type: 'CLEAR' });
+        }
+    }), []);
+
+
     useEffect(() => 
     {
         AsyncStorage.getItem('@grouplink').then((value) => 
@@ -53,17 +65,6 @@ const App = () =>
         });
     }, []);
 
-    const Context = useMemo(() => 
-    ({
-        update: (name, url) => {
-            AsyncStorage.setItem('@grouplink', JSON.stringify({ name: name, url: url }));
-            dispatch({ type: 'UPDATE', name: name, url: url });
-        },
-        clear: () => {
-            dispatch({ type: 'CLEAR' });
-        }
-    }), []);
-
     return (
         <NavigationContainer>
             {scheduleState.isLoading == true ? (
@@ -73,11 +74,17 @@ const App = () =>
                     <Stack.Navigator>
                         {scheduleState.groupname == null ? (
                             <>
-                                <Stack.Screen name="CourseSelect" component={CourseSelect} options={{ title: "Wybór kierunku" }}/>
-                                <Stack.Screen name="GroupSelect" component={GroupSelect} options={{ title: "Wybór grupy" }}/>
+                                <Stack.Screen name="CourseSelect" component={CourseSelect} options={
+                                    { title: "Wybór kierunku" }
+                                }/>
+                                <Stack.Screen name="GroupSelect" component={GroupSelect} options={
+                                    { title: "Wybór grupy" }
+                                }/>
                             </>
                         ) : (
-                            <Stack.Screen name="Schedule" component={Schedule} options={{ title: "Plan zajęć", headerLeft: () => { return null; } }}/>
+                            <Stack.Screen name="Schedule" component={Schedule} options={
+                                { title: "Plan zajęć", headerLeft: () => { return null; } }
+                            }/>
                         )}
                     </Stack.Navigator>
                 </ScheduleContext.Provider>

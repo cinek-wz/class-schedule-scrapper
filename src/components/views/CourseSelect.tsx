@@ -79,7 +79,11 @@ const CourseSelect = ({ navigation }) =>
 
                     {pickedCourse ? (
                         <View>
-                            <Button title="Dalej" onPress={() => navigation.navigate('GroupSelect', { course: pickedCourse })}></Button>
+                            <Button title="Dalej" onPress={() => navigation.navigate('GroupSelect', 
+                            { 
+                                course: pickedCourse 
+                            }
+                            )}></Button>
                         </View>
                     ) : null}
                 </>

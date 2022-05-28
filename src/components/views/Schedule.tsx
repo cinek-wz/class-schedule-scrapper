@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, Button, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
-import { Colors, DebugInstructions } from 'react-native/Libraries/NewAppScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
 import { parse } from 'node-html-parser';
@@ -14,10 +13,10 @@ const Schedule = ({ route, navigation }) =>
     const [isLoading, setLoading] = useState(true);
     const [tableData, setTableData] = useState([]);
 
+    const Context = useContext(ScheduleContext);
+
     const tableHead = ['PG', 'Od', 'Do', 'Przedmiot', 'RZ', 'Nauczyciel', 'Miejsce', 'Terminy'];
     const widthArr = [40, 80, 60, 170, 40, 140, 80, 80];
-
-    const Context = useContext(ScheduleContext);
 
     useEffect(() => 
     {
@@ -47,14 +46,10 @@ const Schedule = ({ route, navigation }) =>
                     {
                         let ActivityData = $(p).find('td');
                         let TableActivity = [];
-                        TableActivity.push($(ActivityData[0]).text())
-                        TableActivity.push($(ActivityData[1]).text())
-                        TableActivity.push($(ActivityData[2]).text())
-                        TableActivity.push($(ActivityData[3]).text())
-                        TableActivity.push($(ActivityData[4]).text())
-                        TableActivity.push($(ActivityData[5]).text())
-                        TableActivity.push($(ActivityData[6]).text())
-                        TableActivity.push($(ActivityData[7]).text())
+                        for(let z = 0;z<8;z++)
+                        {
+                            TableActivity.push($(ActivityData[z]).text())
+                        }
                         TableDay.data.push(TableActivity);
                     }
                     TimeTable.push(TableDay);
